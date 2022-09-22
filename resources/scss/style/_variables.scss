@@ -1,0 +1,45 @@
+/*
+COLOR
+ */
+
+$blue: #1F4392;
+$bluelight: #112652;
+$main: #81d742;
+$mainlight: #eeee22;
+$white: #ffffff;
+$green: #80B73A;
+$black: #000000;
+$yellow: #F7BE16;
+$grey: #333333;
+
+/*
+SIZE
+*/
+$highsize: 4.5rem;
+$midsize: 2.5rem;
+$normsize: 1.2rem;
+$smallsize: 1rem;
+
+
+
+/*
+ * Bootstrap
+ */
+
+$grid-columns:      12;
+$grid-gutter-width: 30px;
+
+$grid-breakpoints: (
+    xs: 0,
+    sm: 435px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px
+);
+
+$container-max-widths: (
+    sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 1140px
+);
