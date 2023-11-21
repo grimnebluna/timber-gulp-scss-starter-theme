@@ -134,25 +134,25 @@ class StarterSite extends Timber\Site {
 		$twig->addExtension( new Twig\Extension\StringLoaderExtension() );
 		$twig->addFilter( new Twig\TwigFilter( 'myfoo', array( $this, 'myfoo' ) ) );
 		$twig->addFunction(
-			new Twig_SimpleFunction('rev', function ($filename, $format){
-				  $manifest_path =  get_stylesheet_directory(). '/static/' . $format .'/rev-manifest.json';
-	
-			  if (file_exists($manifest_path)) {
-				$manifest = json_decode(file_get_contents($manifest_path), TRUE);
-	
-			  } else {
-				$manifest = [];
-	
-			  }
-	
-			  if (array_key_exists($filename, $manifest)) {
-				return get_template_directory_uri().'/static/' . $format . '/' . $manifest[$filename];
-			  }
-			  return $filename;
-	
-			})
-		  );
-	
+	    new Twig\TwigFunction('rev', function ($filename, $format){
+			  $manifest_path =  get_stylesheet_directory(). '/static/' . $format .'/rev-manifest.json';
+
+	      if (file_exists($manifest_path)) {
+	        $manifest = json_decode(file_get_contents($manifest_path), TRUE);
+
+	      } else {
+	        $manifest = [];
+
+	      }
+
+	      if (array_key_exists($filename, $manifest)) {
+	        return get_template_directory_uri().'/static/' . $format . '/' . $manifest[$filename];
+	      }
+	      return $filename;
+
+	    })
+	  );
+
 		return $twig;
 	}
 
