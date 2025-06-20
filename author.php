@@ -12,9 +12,9 @@
 global $wp_query;
 
 $context          = Timber::context();
-$context['posts'] = new Timber\PostQuery();
+$context['posts'] = new Timber\PostQuery($GLOBALS['wp_query']);
 if ( isset( $wp_query->query_vars['author'] ) ) {
-	$author            = new Timber\User( $wp_query->query_vars['author'] );
+	$author            = Timber::get_user( $wp_query->query_vars['author'] );
 	$context['author'] = $author;
 	$context['title']  = 'Author Archives: ' . $author->name();
 }

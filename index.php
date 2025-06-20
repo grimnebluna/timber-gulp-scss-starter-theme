@@ -14,7 +14,7 @@
  */
 
 $context          = Timber::context();
-$context['posts'] = new Timber\PostQuery();
+$context['posts'] = new Timber\PostQuery($GLOBALS['wp_query']);
 $context['foo']   = 'bar';
 $templates        = array( 'index.twig' );
 if ( is_home() ) {
