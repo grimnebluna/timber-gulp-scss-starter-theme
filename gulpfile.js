@@ -1,16 +1,15 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
-var sass = require('gulp-sass')(require('sass'));
+var sass = require('gulp-sass')(require('sass-embedded'));
 var cleanCSS = require('gulp-clean-css');
 var concatCss = require('gulp-concat-css');
 var rev = require('gulp-rev');
-var del = require('del');
+const { deleteAsync } = require('del');
 
 var paths = {
   scripts: [
     'node_modules/jquery/dist/jquery.min.js',
-    'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
 //    'node_modules/masonry-layout/dist/masonry.pkgd.min.js',
 //    'node_modules/imagesloaded/imagesloaded.pkgd.min.js',
 //    'node_modules/lightgallery/lightgallery.min.js',
@@ -25,11 +24,11 @@ var paths = {
   ]
 };
 
-gulp.task('styles', function() {
-  del(['./static/css/*.css']);
+gulp.task('styles', async function() {
+  await deleteAsync(['./static/css/*.css']);
   return gulp.src(paths.styles)
     .pipe(sourcemaps.init())
-    .pipe(sass())
+    .pipe(sass().on('error', sass.logError))
     .pipe(concatCss('all.min.css', {rebaseUrls:false}))
     .pipe(cleanCSS({
       compatibility: "ie8",
@@ -43,8 +42,8 @@ gulp.task('styles', function() {
 
 });
 
-gulp.task('scripts', function() {
-  del(['./static/js/*.js']);
+gulp.task('scripts', async function() {
+  await deleteAsync(['./static/js/*.js']);
   return gulp.src(paths.scripts)
     .pipe(sourcemaps.init())
     .pipe(concat('all.min.js'))
@@ -60,4 +59,10 @@ gulp.task('scripts', function() {
 //  gulp.watch(paths.styles, ['styles']);
 //
 //});
+
+gulp.task('watch', function() {
+  gulp.watch(paths.scripts, gulp.series('scripts'));
+  gulp.watch(paths.styles, gulp.series('styles'));
+});
+
 gulp.task('build', gulp.series('scripts', 'styles'));

@@ -164,7 +164,7 @@ class StarterSite extends Timber\Site {
 	public function add_to_twig( $twig ) {
 		$twig->addExtension( new Twig\Extension\StringLoaderExtension() );
 		$twig->addFunction(
-	    new Twig_SimpleFunction('rev', function ($filename, $format){
+	    new Twig\TwigFunction('rev', function ($filename, $format){
 			  $manifest_path =  get_stylesheet_directory(). '/static/' . $format .'/rev-manifest.json';
 
 	      if (file_exists($manifest_path)) {
